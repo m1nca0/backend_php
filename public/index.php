@@ -33,7 +33,19 @@
     </div>
   </nav>
   <div class="container">
-    <?php print_r($_SERVER["REQUEST_URI"]) ?>
+        <?php 
+    $url = $_SERVER["REQUEST_URI"];
+
+    echo "Вы на странице: $url, будьте внимательны!<br>";
+
+    if ($url == "/") {
+        require "../views/main.php";
+    } elseif ($url == "/sint") {
+        require "../views/sint.php";
+    } elseif ($url == "/plug") {
+        require "../views/plug.php";
+    } 
+    ?>
   </div>
 
 
