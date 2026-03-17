@@ -1,1 +1,26 @@
-Здесь о синтезаторах
+<?php
+$is_image = $url == '/sint/image';
+$is_info = $url == '/sint/info';
+?>
+
+<h1>Здесь о синтезаторах</h1>
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link <?= $is_image ? "active" : '' ?>" aria-current="page" href="/sint/image">
+      Картинка
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link <?= $is_info ? "active" : '' ?>" aria-current="page" href="/sint/info">
+      Описание
+    </a>
+  </li>
+</ul>
+
+<?php
+if ($is_image) {
+  require "sint_image.php";
+} elseif ($is_info) {
+  require "sint_info.php";
+}
+?>
