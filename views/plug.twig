@@ -1,0 +1,17 @@
+{% extends "__layouts.twig" %}
+{% block content %}
+<h1>Здесь о плагинах</h1>
+
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link {{ is_img ? "active" : ''}}" aria-current="page" href="/plug/image">Картинка</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{ is_info ? "active" : '' }}" aria-current="page" href="/plug/info">Описание</a>
+  </li>
+</ul>
+
+{% block plug_content %}
+{% endblock %}
+
+{% endblock %}
