@@ -1,3 +1,4 @@
+{# php -S localhost:3000 -t public #}
 <?php
 require_once '../vendor/autoload.php';
 $loader = new \Twig\Loader\FilesystemLoader('../views');

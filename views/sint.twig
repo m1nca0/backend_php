@@ -1,7 +1,3 @@
-{# <?php
-$is_image = $url == '/sint/image';
-$is_info = $url == '/sint/info';
-?> #}
 {% extends "__layouts.twig" %}
 {% block content %}
 <h1>Здесь о синтезаторах</h1>
@@ -18,10 +14,3 @@ $is_info = $url == '/sint/info';
   </li>
 </ul>
 {% endblock %}
-{# <?php
-if ($is_image) {
-  require "sint_image.php";
-} elseif ($is_info) {
-  require "sint_info.php";
-}
-?> #}
