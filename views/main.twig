@@ -1,0 +1,25 @@
+{% extends "__layout.twig" %}
+{% block content %}
+
+{% for item in menu_items %}
+    <li class="list-group-item">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{item.url_title}}">
+          {{item.title}}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{item.url_title}}/image">
+          Картинка
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{item.url_title}}/info">
+          Описание
+        </a>
+      </li>
+    </ul>
+  </li>
+{% endfor %}
+{% endblock %}

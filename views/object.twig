@@ -1,0 +1,18 @@
+{% extends "__layout.twig" %}
+{% block content %}
+<h1>Здесь {{title}}</h1>
+
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link {{is_image ? 'active'}}" aria-current="page" href="/{{url_title}}/image">Картинка</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{is_info ? 'active'}}" aria-current="page" href="/{{url_title}}/info">Описание</a>
+  </li>
+</ul>
+<div class="container">
+    {% block objectcontainer %}
+    
+    {% endblock %}
+</div>
+{% endblock %}
