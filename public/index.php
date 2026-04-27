@@ -19,6 +19,9 @@ $template = "";
 $context = [];
 
 $controller = new Controller404($twig);
+
+$pdo = new PDO("mysql:host=127.0.0.1;dbname=music_plugins;charset=utf8", "root", "root");
+
 if ($url == "/") {
   $controller = new MainController($twig);
 } elseif (preg_match("#^/plug/image#", $url)) {
