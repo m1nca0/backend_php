@@ -9,10 +9,12 @@ class MainController extends TwigBaseController
   {
     $context = parent::getContext();
 
-    $context['menu_items'] = [
-      ['url_title' => 'plug', 'title' => 'Плагины'],
-      ['url_title' => 'sint', 'title' => 'Синтезаторы']
-    ];
+    // подготавливаем запрос SELECT * FROM space_objects
+    // вообще звездочку не рекомендуется использовать, но на первый раз пойдет
+    $query = $this->pdo->query("SELECT * FROM synthesizers");
+
+    // стягиваем данные через fetchAll() и сохраняем результат в контекст
+    $context['synthesizers'] = $query->fetchAll();
 
     return $context;
   }

@@ -10,7 +10,10 @@ require_once "../controllers/SintInfoController.php";
 require_once "../controllers/Controller404.php";
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
-$twig = new \Twig\Environment($loader);
+$twig = new \Twig\Environment($loader, [
+    "debug" => true 
+]);
+$twig->addExtension(new \Twig\Extension\DebugExtension());
 
 
 $url = $_SERVER["REQUEST_URI"];
@@ -39,5 +42,6 @@ if ($url == "/") {
 }
 
 if ($controller) {
+  $controller->setPDO($pdo);
   $controller->get();
 }
