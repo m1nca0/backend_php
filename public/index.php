@@ -30,5 +30,5 @@ $pdo = new PDO("mysql:host=127.0.0.1;dbname=music_plugins;charset=utf8", "root",
 $router = new Router($twig, $pdo);
 $router->add("/", MainController::class);
 $router->add("/plug", PlugController::class);
-$router->add("/synthesizers/(\d+)", ObjectController::class); 
+$router->add("/synthesizers/(?P<id>\d+)", ObjectController::class); 
 $router->get_or_default(Controller404::class);

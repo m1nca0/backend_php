@@ -11,5 +11,12 @@ abstract class BaseController
   {
     return [];
   }
+  public array $params; // добавил поле
+
+  // добавил сеттер
+  public function setParams(array $params)
+  {
+    $this->params = $params;
+  }
   abstract public function get();
 }
