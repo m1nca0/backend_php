@@ -1,5 +1,6 @@
 <?php
 require_once '../vendor/autoload.php';
+require_once '../framework/autoload.php';
 require_once "../controllers/MainController.php";
 require_once "../controllers/PlugController.php";
 require_once "../controllers/PlugImageController.php";
@@ -25,23 +26,7 @@ $controller = new Controller404($twig);
 
 $pdo = new PDO("mysql:host=127.0.0.1;dbname=music_plugins;charset=utf8", "root", "root");
 
-if ($url == "/") {
-  $controller = new MainController($twig);
-} elseif (preg_match("#^/plug/image#", $url)) {
-  $controller = new PlugImageController($twig);
-} elseif (preg_match("#^/plug/info#", $url)) {
-  $controller = new PlugInfoController($twig);
-} elseif (preg_match("#^/plug#", $url)) {
-  $controller = new PlugController($twig);
-} elseif (preg_match("#^/sint/image#", $url)) {
-  $controller = new SintImageController($twig);
-} elseif (preg_match("#^/sint/info#", $url)) {
-  $controller = new SintInfoController($twig);
-} elseif (preg_match("#^/sint#", $url)) {
-  $controller = new SintController($twig);
-}
-
-if ($controller) {
-  $controller->setPDO($pdo);
-  $controller->get();
-}
+$router = new Router($twig, $pdo);
+$router->add("/", MainController::class);
+$router->add("/plug", PlugController::class);
+$router->get_or_default(Controller404::class);

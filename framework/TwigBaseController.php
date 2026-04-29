@@ -8,7 +8,7 @@ class TwigBaseController extends BaseController
   public $template = "";
   protected \Twig\Environment $twig;
 
-  public function __construct($twig)
+  public function setTwig($twig)
   {
     $this->twig = $twig;
   }
