@@ -10,6 +10,8 @@ require_once "../controllers/SintImageController.php";
 require_once "../controllers/SintInfoController.php";
 require_once "../controllers/Controller404.php";
 require_once "../controllers/ObjectController.php"; 
+require_once "../controllers/InfoController.php"; 
+require_once "../controllers/ImageController.php"; 
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
 $twig = new \Twig\Environment($loader, [
@@ -30,5 +32,7 @@ $pdo = new PDO("mysql:host=127.0.0.1;dbname=music_plugins;charset=utf8", "root",
 $router = new Router($twig, $pdo);
 $router->add("/", MainController::class);
 $router->add("/plug", PlugController::class);
+$router->add("/synthesizers/(?P<id>\d+)/image", ImageController::class); 
+$router->add("/synthesizers/(?P<id>\d+)/info", InfoController::class); 
 $router->add("/synthesizers/(?P<id>\d+)", ObjectController::class); 
 $router->get_or_default(Controller404::class);
