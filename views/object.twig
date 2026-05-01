@@ -5,10 +5,10 @@
 <h3>{{description}}</h3>
 <ul class="nav nav-pills">
   <li class="nav-item">
-    {{ btn("Картинка","/synthesizers/" ~ id ~ "/image", is_image)}}
+    {{ btn("Картинка","/synthesizers/" ~ id ~ "?show=image", is_image)}}
   </li>
   <li class="nav-item">
-    {{ btn("Описание", "/synthesizers/" ~ id ~ "/info", is_info)}}
+    {{ btn("Описание", "/synthesizers/" ~ id ~ "?show=info", is_info)}}
   </li>
 </ul>
 <div class="container">

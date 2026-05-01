@@ -2,16 +2,8 @@
 require_once '../vendor/autoload.php';
 require_once '../framework/autoload.php';
 require_once "../controllers/MainController.php";
-require_once "../controllers/PlugController.php";
-require_once "../controllers/PlugImageController.php";
-require_once "../controllers/PlugInfoController.php";
-require_once "../controllers/SintController.php";
-require_once "../controllers/SintImageController.php";
-require_once "../controllers/SintInfoController.php";
 require_once "../controllers/Controller404.php";
-require_once "../controllers/ObjectController.php"; 
-require_once "../controllers/InfoController.php"; 
-require_once "../controllers/ImageController.php"; 
+require_once "../controllers/ObjectController.php";  
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
 $twig = new \Twig\Environment($loader, [
@@ -31,8 +23,7 @@ $pdo = new PDO("mysql:host=127.0.0.1;dbname=music_plugins;charset=utf8", "root",
 
 $router = new Router($twig, $pdo);
 $router->add("/", MainController::class);
-$router->add("/plug", PlugController::class);
-$router->add("/synthesizers/(?P<id>\d+)/image", ImageController::class); 
-$router->add("/synthesizers/(?P<id>\d+)/info", InfoController::class); 
+$router->add("/synthesizers/(?P<id>\d+)?show=image", ObjectController::class); 
+$router->add("/synthesizers/(?P<id>\d+)?show=info", ObjectController::class); 
 $router->add("/synthesizers/(?P<id>\d+)", ObjectController::class); 
 $router->get_or_default(Controller404::class);
