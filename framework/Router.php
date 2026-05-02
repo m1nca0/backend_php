@@ -56,7 +56,7 @@ class Router
     }
 
   
-    return $controllerInstance->get();
+    return $controllerInstance->process_response();
   }
   public function add($route_regexp, $controller)
   {

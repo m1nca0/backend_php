@@ -4,7 +4,7 @@ class ObjectController extends BaseSintTwigController
 {
   public $template = "object.twig";
 
-  public function get()
+  public function get(array $context)
   {
     if (isset($_GET['show'])) {
       if ($_GET['show'] == 'image') {
@@ -14,7 +14,7 @@ class ObjectController extends BaseSintTwigController
       }
     }
     
-    parent::get();
+    parent::get($context);
   }
 
   public function getContext(): array
