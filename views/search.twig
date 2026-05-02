@@ -1,0 +1,28 @@
+{% extends "__layout.twig" %}
+{% from "btn.twig" import btn%}
+{% block content %}
+    Поиск
+
+    <form action="">
+      <div  style="display:flex; justify-content: space-between; width: 100wv">
+        <select class="form-select" aria-label="Default select example" name="type" style="width:30%">
+          <option selected value="">Все</option>
+          <option value="синтезатор">Синтезатор</option>
+          <option value="ревербератор">Ревербератор</option>
+        </select>   
+        <input type="text" class="form-control" placeholder="Название" aria-label="Title" style="width:30%" name="title">
+        <input type="text" class="form-control" placeholder="Описание" aria-label="Description" style="width:30%" name="description">
+        <button type="submit" class="btn btn-primary" style="width:8%">Найти</button>
+          
+      </div>
+    </form>
+    <div class="card" style="width: 18rem; margin-top: 10px">
+      <ul class="list-group list-group-flush">
+        {% for object in objects %}
+          <li class="list-group-item">
+            {{ btn(object.title, "/synthesizers/" ~ object.id , false)}}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+{% endblock %}
