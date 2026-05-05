@@ -4,8 +4,17 @@
 <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
 {% for object in synthesizers %}
 
-    <div style="padding: 1%; display: flex; gap: 10px ;flex-direction:column; justify-content: space-between; align-items:center; border: 2px solid rgb(222, 222, 222)">
+    <div class="position-relative" style="padding: 1%; display: flex; gap: 10px ;flex-direction:column; justify-content: space-between; align-items:center; border: 2px solid rgb(222, 222, 222)">
       
+      <div class="position-absolute" style="right: 4px; top: 4px;">
+        <form action="/synthesizers/delete" method="POST">
+          <input type="hidden" name="id" value="{{object.id}}">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-times"></i>
+          </button>
+        </form>
+      </div>
+
       <div>
         <img style="max-width: 200px; height: auto;" src="{{object.image}}" alt="">
       </div>

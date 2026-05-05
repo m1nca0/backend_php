@@ -6,7 +6,8 @@ require_once "../controllers/Controller404.php";
 require_once "../controllers/ObjectController.php";
 require_once "../controllers/SearchController.php";  
 require_once "../controllers/SintObjectCreateController.php";
-require_once "../controllers/SintTypeCreateController.php";  
+require_once "../controllers/SintTypeCreateController.php";
+require_once "../controllers/SintObjectDeleteController.php";  
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
 $twig = new \Twig\Environment($loader, [
@@ -32,4 +33,5 @@ $router->add("/synthesizers/(?P<id>\d+)", ObjectController::class);
 $router->add("/search", SearchController::class);
 $router->add("/synthesizers/create", SintObjectCreateController::class);
 $router->add("/synthesizers/createtype", SintTypeCreateController::class);
+$router->add("/synthesizers/delete", SintObjectDeleteController::class);
 $router->get_or_default(Controller404::class);
