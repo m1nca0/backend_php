@@ -13,11 +13,11 @@ class SearchController extends BaseSintTwigController{
     $description = isset($_GET['des$description']) ? $_GET['des$description'] : '';
 
     $sql = <<<EOL
-SELECT id, title, description
-FROM synthesizers
-WHERE (:title = '' OR title like CONCAT('%', :title, '%'))
-  AND (:type = '' OR type like CONCAT('%', :type, '%'))
-  AND (:description = '' OR description like CONCAT('%', :description, '%'))
+SELECT synthesizers.id, synthesizers.title, synthesizers.description
+FROM synthesizers JOIN types on synthesizers.type_id = types.id
+WHERE (:title = '' OR synthesizers.title like CONCAT('%', :title, '%'))
+  AND (:type = '' OR types.type like CONCAT('%', :type, '%'))
+  AND (:description = '' OR synthesizers.description like CONCAT('%', :description, '%'))
 EOL;
 
     $query = $this->pdo->prepare($sql);
@@ -25,7 +25,10 @@ EOL;
     $query->bindValue("type", $type);
     $query->bindValue("description", $description);
     $query->execute();
-
+    
+    $query = $this->pdo->query("SELECT DISTINCT type FROM types order by 1");
+    $types = $query->fetchAll();
+    $context['types'] = $types;
     $context['objects'] = $query->fetchAll();
     return $context;
   }

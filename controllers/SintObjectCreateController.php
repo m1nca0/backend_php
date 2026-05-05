@@ -15,22 +15,18 @@ class SintObjectCreateController extends BaseSintTwigController
 
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $type = $_POST['type'];
+    $type_id = $_POST['type_id'];
     $info = $_POST['info'];
 
-    // вытащил значения из $_FILES
     $tmp_name = $_FILES['image']['tmp_name'];
     $name =  $_FILES['image']['name'];
 
-    // используем функцию которая проверяет
-    // что файл действительно был загружен через POST запрос
-    // и если это так, то переносит его в указанное во втором аргументе место
     move_uploaded_file($tmp_name, "../public/media/$name");
     $image_url = "/media/$name";
 
     $sql = <<<EOL
-INSERT INTO synthesizers(title, description, type, info, image)
-VALUES(:title, :description, :type, :info, :image_url)
+INSERT INTO synthesizers(title, description, type_id, info, image)
+VALUES(:title, :description, :type_id, :info, :image_url)
 EOL;
 
 
@@ -38,11 +34,15 @@ EOL;
 
     $query->bindValue("title", $title);
     $query->bindValue("description", $description);
-    $query->bindValue("type", $type);
+    $query->bindValue("type_id", $type_id, PDO::PARAM_INT);
     $query->bindValue("info", $info);
     $query->bindValue("image_url", $image_url);
 
     $query->execute();
+
+    $query = $this->pdo->query("SELECT DISTINCT type FROM types order by 1");
+    $types = $query->fetchAll();
+    $context['types'] = $types;
 
     $context['message'] = 'Вы успешно создали объект';
     $context['id'] = $this->pdo->lastInsertId();

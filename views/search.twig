@@ -7,8 +7,9 @@
       <div  style="display:flex; justify-content: space-between; width: 100wv">
         <select class="form-select" aria-label="Default select example" name="type" style="width:30%">
           <option selected value="">Все</option>
-          <option value="синтезатор">Синтезатор</option>
-          <option value="ревербератор">Ревербератор</option>
+            {% for type in types %}
+              <option value="{{type.id + 1}}">{{type.type}}</option>  
+            {% endfor %}
         </select>   
         <input type="text" class="form-control" placeholder="Название" aria-label="Title" style="width:30%" name="title">
         <input type="text" class="form-control" placeholder="Описание" aria-label="Description" style="width:30%" name="description">

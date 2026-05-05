@@ -22,9 +22,10 @@
         </div>
         <div class="col-4">
             <label class="form-label">Тип</label>
-            <select class="form-control" name="type">
-              <option value="синтезатор">Синтезатор</option>
-              <option value="ревербератор">Ревербератор</option>
+            <select class="form-control" name="type_id">
+            {% for type in types %}
+              <option value="{{type.id + 1}}">{{type.type}}</option>  
+            {% endfor %}
             </select>
         </div>
         <div class="mb-3">
