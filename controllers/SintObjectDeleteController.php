@@ -5,6 +5,7 @@ class SintObjectDeleteController extends BaseController {
     {
         $id = $_POST['id'];
 
+        
         $sql =<<<EOL
 DELETE FROM synthesizers WHERE id = :id
 EOL;
@@ -14,7 +15,7 @@ EOL;
         $query->bindValue(":id", $id);
         $query->execute();
 
-        
+
         header("Location: /");
         exit;
     }
