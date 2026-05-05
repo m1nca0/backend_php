@@ -6,9 +6,9 @@
     <form action="">
       <div  style="display:flex; justify-content: space-between; width: 100wv">
         <select class="form-select" aria-label="Default select example" name="type" style="width:30%">
-          <option selected value="">Все</option>
+          <option value="">Все</option>
             {% for type in types %}
-              <option value="{{type.id + 1}}">{{type.type}}</option>  
+              <option value="{{type.type}}">{{type.type}}</option>  
             {% endfor %}
         </select>   
         <input type="text" class="form-control" placeholder="Название" aria-label="Title" style="width:30%" name="title">

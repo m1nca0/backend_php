@@ -25,11 +25,15 @@ EOL;
     $query->bindValue("type", $type);
     $query->bindValue("description", $description);
     $query->execute();
-    
+
+    $context['objects'] = $query->fetchAll();
+
+
     $query = $this->pdo->query("SELECT DISTINCT type FROM types order by 1");
     $types = $query->fetchAll();
+
     $context['types'] = $types;
-    $context['objects'] = $query->fetchAll();
+  
     return $context;
   }
 }
