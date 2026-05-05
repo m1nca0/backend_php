@@ -1,9 +1,9 @@
 <?php
 require_once "BaseSintTwigController.php";
 
-class SintObjectCreateController extends BaseSintTwigController
+class SintTypeCreateController extends BaseSintTwigController
 {
-  public $template = "sint_create.twig";
+  public $template = "sint_create_type.twig";
   public function get(array $context)
   {
     echo $_SERVER['REQUEST_METHOD'];
@@ -14,9 +14,6 @@ class SintObjectCreateController extends BaseSintTwigController
   {
 
     $title = $_POST['title'];
-    $description = $_POST['description'];
-    $type = $_POST['type'];
-    $info = $_POST['info'];
 
     // вытащил значения из $_FILES
     $tmp_name = $_FILES['image']['tmp_name'];
@@ -29,17 +26,14 @@ class SintObjectCreateController extends BaseSintTwigController
     $image_url = "/media/$name";
 
     $sql = <<<EOL
-INSERT INTO synthesizers(title, description, type, info, image)
-VALUES(:title, :description, :type, :info, :image_url)
+INSERT INTO types(title, image)
+VALUES(:title, :image_url)
 EOL;
 
 
     $query = $this->pdo->prepare($sql);
 
     $query->bindValue("title", $title);
-    $query->bindValue("description", $description);
-    $query->bindValue("type", $type);
-    $query->bindValue("info", $info);
     $query->bindValue("image_url", $image_url);
 
     $query->execute();

@@ -9,7 +9,7 @@ class MainController extends BaseSintTwigController
   {
     $context = parent::getContext();
     if(isset($_GET['type'])){
-      $query = $this->pdo->prepare("SELECT * FROM synthesizers WHERE type = :type");
+      $query = $this->pdo->prepare("SELECT * FROM synthesizers JOIN types ON synthesizers.type_id = types.id WHERE types.type = :type");
       $query->bindValue("type", $_GET['type']);
       $query->execute();
     }
