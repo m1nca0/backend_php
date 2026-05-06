@@ -6,12 +6,13 @@
 
     {% if message %}
     <div class="alert alert-info">
-      {{message}}
+      {{message}}      
       {{ btn(object.title, "/synthesizers/" ~ object.id , false)}}
     </div>
     {% endif %}
 
     <form action="" enctype="multipart/form-data" method="POST" class="row g-3">
+        <input type="hidden" name="id" value="{{ object.id }}">
         <div class="col-4">
             <label class="form-label">Название</label>
             <input type="text" class="form-control" name="title" value="{{object.title}}">
@@ -24,7 +25,7 @@
             <label class="form-label">Тип</label>
             <select class="form-control" name="type_id">
             {% for type in types %}
-              <option value="{{type.id + 1}}">{{type.type}}</option>  
+              <option value="{{type.id}}">{{type.type}}</option>  
             {% endfor %}
             </select>
         </div>

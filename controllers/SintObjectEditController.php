@@ -4,8 +4,9 @@ require_once "BaseSintTwigController.php";
 class SintObjectEditController extends BaseSintTwigController
 {
   public $template = "sint_create.twig";
-  public function get(array $context)
+  public function getContext(): array
   {
+    $context = parent::getContext();
     $id = $this->params['id'];
 
     $sql = <<<EOL
@@ -17,10 +18,14 @@ EOL;
     $query->execute();
 
     $data = $query->fetch();
-
+    $query = $this->pdo->query("SELECT * FROM types order by 1");
+    $types = $query->fetchAll();
+    $context['types'] = $types;
     $context['object'] = $data;
-    $this -> get($context);
+
+    return $context;
   }
+  
 
   public function post(array $context)
   {
@@ -46,8 +51,8 @@ EOL;
     $query->bindValue("description", $description);
     $query->bindValue("type_id", $type_id, PDO::PARAM_INT);
     $query->bindValue("info", $info);
-    $query->bindValue("image_url", $image_url);
-    $query->bindValue("id", $id, PDO::PARAM_INT); 
+    $query->bindValue("image", $image_url);
+    $query->bindValue("id", $id, PDO::PARAM_INT);
 
     $query->execute();
 
