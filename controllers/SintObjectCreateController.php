@@ -7,7 +7,7 @@ class SintObjectCreateController extends BaseSintTwigController
   public function get(array $context)
   {
     echo $_SERVER['REQUEST_METHOD'];
-
+    // phpinfo();
     parent::get($context);
   }
   public function post(array $context)
@@ -46,7 +46,6 @@ EOL;
 
     $context['message'] = 'Вы успешно создали объект';
     $context['id'] = $this->pdo->lastInsertId();
-
     $this->get($context);
   }
 }
