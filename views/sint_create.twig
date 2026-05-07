@@ -1,7 +1,11 @@
 {% extends "__layout.twig" %}
 {% from "btn.twig" import btn%}
 {% block content %}
+    {% if edit == true %}
+    <h1>Обновление ОБЪЕКТА музыкального плагина</h1>
+    {% else %}
     <h1>Добавление ОБЪЕКТА музыкального плагина</h1>
+    {% endif %}
     <hr>
 
     {% if message %}

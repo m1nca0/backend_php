@@ -25,7 +25,7 @@ EOL;
     $query->bindValue("type", $type);
     $query->bindValue("description", $description);
     $query->execute();
-
+    $context['type_sel'] = $type;
     $context['objects'] = $query->fetchAll();
 
 

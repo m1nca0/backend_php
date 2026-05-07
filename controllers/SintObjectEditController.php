@@ -20,12 +20,13 @@ EOL;
     $data = $query->fetch();
     $query = $this->pdo->query("SELECT * FROM types order by 1");
     $types = $query->fetchAll();
+    $context['edit'] = true;
     $context['types'] = $types;
     $context['object'] = $data;
 
     return $context;
   }
-  
+
 
   public function post(array $context)
   {
@@ -35,16 +36,17 @@ EOL;
     $info = $_POST['info'];
     $id = $_POST['id'];
 
+    $image = isset($_POST['image']) ? ($_POST['image']) : '';
+
     $tmp_name = $_FILES['image']['tmp_name'];
     $name =  $_FILES['image']['name'];
 
     move_uploaded_file($tmp_name, "../public/media/$name");
     $image_url = "/media/$name";
-
-    $sql = <<<EOL
+    if ($image_url != "/media/") {
+      $sql = <<<EOL
 UPDATE synthesizers SET title = :title, description = :description, type_id = :type_id, info = :info, image = :image WHERE id = :id
 EOL;
-
     $query = $this->pdo->prepare($sql);
 
     $query->bindValue("title", $title);
@@ -53,6 +55,18 @@ EOL;
     $query->bindValue("info", $info);
     $query->bindValue("image", $image_url);
     $query->bindValue("id", $id, PDO::PARAM_INT);
+    } else {
+      $sql = <<<EOL
+UPDATE synthesizers SET title = :title, description = :description, type_id = :type_id, info = :info  WHERE id = :id
+EOL;
+    $query = $this->pdo->prepare($sql);
+
+    $query->bindValue("title", $title);
+    $query->bindValue("description", $description);
+    $query->bindValue("type_id", $type_id, PDO::PARAM_INT);
+    $query->bindValue("info", $info);
+    $query->bindValue("id", $id, PDO::PARAM_INT);
+    }
 
     $query->execute();
 

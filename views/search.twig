@@ -5,10 +5,14 @@
 
     <form action="">
       <div  style="display:flex; justify-content: space-between; width: 100wv">
-        <select class="form-select" aria-label="Default select example" name="type" style="width:30%">
+        <select selected="" class="form-select" aria-label="Default select example" name="type" style="width:30%">
           <option value="">Все</option>
             {% for type in types %}
-              <option value="{{type.type}}">{{type.type}}</option>  
+              {% if type_sel == type.type%}
+              <option selected value="{{type.type}}">{{type.type}}</option> 
+              {% else %}
+              <option value="{{type.type}}">{{type.type}}</option> 
+              {% endif %}
             {% endfor %}
         </select>   
         <input type="text" class="form-control" placeholder="Название" aria-label="Title" style="width:30%" name="title">
