@@ -38,15 +38,27 @@
                 <a class="nav-link active" aria-current="page" href="/synthesizers/createtype">Добавить тип</a>
             </li>
         </ul>
-        <form action="/set-wecome/">
+        <form action="/set-welcome/">
           <input type="text" name="message" class="form-control mr-2 ml-2">
         </form>
       </div>
     </div>
   </nav>
-  <div class="container">
-    {% block content %}
-    {% endblock %}
+  <div class="container" style="display: flex;">
+    <div style="flex-grow: 6; flex-basis: 0; padding: 15px">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <div style="flex-grow: 2; flex-basis: 0;">
+      Последние страницы которые вы посетили
+        {% for m in urls|reverse|slice(0, 10) %}
+          <div class="card" style="margin-top: 5px;">
+            <div class="card-body">
+              {{m}}
+            </div>
+          </div>
+        {% endfor %}  
+    </div>
   </div>
 </body>
 </html>

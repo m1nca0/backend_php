@@ -1,20 +1,24 @@
 <?php
+session_set_cookie_params(60 * 60 * 10);
+session_start();
+
 require_once '../vendor/autoload.php';
 require_once '../framework/autoload.php';
 require_once "../controllers/MainController.php";
 require_once "../controllers/Controller404.php";
 require_once "../controllers/ObjectController.php";
-require_once "../controllers/SearchController.php";  
+require_once "../controllers/SearchController.php";
 require_once "../controllers/SintObjectCreateController.php";
 require_once "../controllers/SintTypeCreateController.php";
-require_once "../controllers/SintObjectDeleteController.php";  
-require_once "../controllers/SintObjectEditController.php";  
-require_once "../middlewares/LoginRequiredMiddeware.php";  
-require_once "../controllers/SetWelcomeController.php";  
+require_once "../controllers/SintObjectDeleteController.php";
+require_once "../controllers/SintObjectEditController.php";
+require_once "../middlewares/LoginRequiredMiddeware.php";
+require_once "../middlewares/SessionFixMiddleware.php";
+require_once "../controllers/SetWelcomeController.php";
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
 $twig = new \Twig\Environment($loader, [
-    "debug" => true 
+    "debug" => true
 ]);
 $twig->addExtension(new \Twig\Extension\DebugExtension());
 
@@ -29,20 +33,30 @@ $controller = new Controller404($twig);
 $pdo = new PDO("mysql:host=127.0.0.1;dbname=music_plugins;charset=utf8", "root", "root");
 
 $router = new Router($twig, $pdo);
-$router->add("/", MainController::class);
-$router->add("/synthesizers/(?P<id>\d+)?show=image", ObjectController::class); 
-$router->add("/synthesizers/(?P<id>\d+)?show=info", ObjectController::class); 
-$router->add("/synthesizers/(?P<id>\d+)", ObjectController::class); 
-$router->add("/search", SearchController::class);
-$router->add("/set-welcome/", SetWelcomeController::class);
+$router->add("/", MainController::class)
+    ->middleware(new SessionFixMiddleware());
+$router->add("/synthesizers/(?P<id>\d+)?show=image", ObjectController::class)
+    ->middleware(new SessionFixMiddleware());
+$router->add("/synthesizers/(?P<id>\d+)?show=info", ObjectController::class)
+    ->middleware(new SessionFixMiddleware());
+$router->add("/synthesizers/(?P<id>\d+)", ObjectController::class)
+    ->middleware(new SessionFixMiddleware());
+$router->add("/search", SearchController::class)
+    ->middleware(new SessionFixMiddleware());
+$router->add("/set-welcome/", SetWelcomeController::class)
+    ->middleware(new SessionFixMiddleware());
 
 
 $router->add("/synthesizers/create", SintObjectCreateController::class)
-    ->middleware(new LoginRequiredMiddeware());
+    ->middleware(new LoginRequiredMiddeware())
+    ->middleware(new SessionFixMiddleware());
 $router->add("/synthesizers/createtype", SintTypeCreateController::class)
-    ->middleware(new LoginRequiredMiddeware());
+    ->middleware(new LoginRequiredMiddeware())
+    ->middleware(new SessionFixMiddleware());
 $router->add("/synthesizers/delete", SintObjectDeleteController::class)
-    ->middleware(new LoginRequiredMiddeware());
+    ->middleware(new LoginRequiredMiddeware())
+    ->middleware(new SessionFixMiddleware());
 $router->add("/synthesizers/(?P<id>\d+)/edit", SintObjectEditController::class)
-    ->middleware(new LoginRequiredMiddeware());
+    ->middleware(new LoginRequiredMiddeware())
+    ->middleware(new SessionFixMiddleware());
 $router->get_or_default(Controller404::class);
