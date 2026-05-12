@@ -15,6 +15,8 @@ require_once "../controllers/SintObjectEditController.php";
 require_once "../middlewares/LoginRequiredMiddeware.php";
 require_once "../middlewares/SessionFixMiddleware.php";
 require_once "../controllers/SetWelcomeController.php";
+require_once "../controllers/LoginController.php";
+require_once "../controllers/LogoutController.php";
 $loader = new \Twig\Loader\FilesystemLoader('../views');
 
 $twig = new \Twig\Environment($loader, [
@@ -59,4 +61,6 @@ $router->add("/synthesizers/delete", SintObjectDeleteController::class)
 $router->add("/synthesizers/(?P<id>\d+)/edit", SintObjectEditController::class)
     ->middleware(new LoginRequiredMiddeware())
     ->middleware(new SessionFixMiddleware());
+$router->add("/login", LoginController::class);
+$router->add("/logout", LogoutController::class);
 $router->get_or_default(Controller404::class);

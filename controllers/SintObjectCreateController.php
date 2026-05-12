@@ -6,8 +6,6 @@ class SintObjectCreateController extends BaseSintTwigController
   public $template = "sint_create.twig";
   public function get(array $context)
   {
-    echo $_SERVER['REQUEST_METHOD'];
-    // phpinfo();
     parent::get($context);
   }
   public function post(array $context)

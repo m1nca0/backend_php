@@ -6,8 +6,6 @@ class SintTypeCreateController extends BaseSintTwigController
   public $template = "sint_create_type.twig";
   public function get(array $context)
   {
-    echo $_SERVER['REQUEST_METHOD'];
-
     parent::get($context);
   }
   public function post(array $context)
